@@ -24,7 +24,7 @@ namespace AIChallengeFramework
 	/// A continent is identified by its ID, and provides methods to access
 	/// its regions and check if it is owned by some one.
 	/// </summary>
-	public class Continent
+	public class Continent : IComparable
 	{
 		/// <summary>
 		/// If the classic map is played, you can use these enums to map between
@@ -190,6 +190,24 @@ namespace AIChallengeFramework
 			priority = NumberOfInvasionPaths () * NumberOfBorderTerritories ();
 
 			return priority;
+		}
+
+		/// <summary>
+		/// Continents are compared and ordered by their priority.
+		/// </summary>
+		/// <returns>The to.</returns>
+		/// <param name="c">C.</param>
+		public int CompareTo (Object obj)
+		{
+			Continent c = obj as Continent;
+
+			if (c.Priority () == this.Priority ()) {
+				return 0;
+			} else if (c.Priority () > this.Priority ()) {
+				return -1;
+			} else {
+				return 1;
+			}
 		}
 	}
 }
