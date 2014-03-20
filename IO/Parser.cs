@@ -207,7 +207,7 @@ namespace AIChallengeFramework
 		public void UpdateMap (string[] commandParts)
 		{
 			for (int i = 1; i < commandParts.Length; i += 3) {
-				State.UpdateMap (commandParts[i], int.Parse(commandParts[i+1]), int.Parse(commandParts[i+2]));
+				State.UpdateMap (int.Parse(commandParts[i]), commandParts[i+1], int.Parse(commandParts[i+2]));
 			}
 
 			State.CheckRewards ();

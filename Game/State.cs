@@ -184,7 +184,7 @@ namespace AIChallengeFramework
 		/// <param name="player">Player.</param>
 		/// <param name="regionId">Region identifier.</param>
 		/// <param name="armies">Armies.</param>
-		public void UpdateMap (string player, int regionId, int armies)
+		public void UpdateMap (int regionId, string player, int armies)
 		{
 			Region region;
 
