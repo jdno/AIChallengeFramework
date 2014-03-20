@@ -227,9 +227,13 @@ namespace AIChallengeFramework
 			List<Region> startingRegions = new List<Region> ();
 			Region region;
 
-			for (int i = 1; i < commandParts.Length; i++) {
-				region = State.CompleteMap.Regions [int.Parse(commandParts [i])];
-				startingRegions.Add (region);
+			for (int i = 2; i < commandParts.Length; i++) {
+				try {
+					region = State.CompleteMap.Regions [int.Parse(commandParts [i])];
+					startingRegions.Add (region);
+				} catch (Exception e) {
+					Logger.Error (string.Format("Parser:\tException while looking up region {0}.", commandParts [i]));
+				}
 			}
 
 			startingRegions = Bot.PreferredStartingRegions (startingRegions);
