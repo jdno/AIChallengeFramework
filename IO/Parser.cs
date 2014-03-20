@@ -232,7 +232,7 @@ namespace AIChallengeFramework
 				try {
 					region = State.CompleteMap.Regions [int.Parse(commandParts [i])];
 					startingRegions.Add (region);
-				} catch (Exception e) {
+				} catch (Exception) {
 					Logger.Error (string.Format("Parser:\tException while looking up region {0}.", commandParts [i]));
 				}
 			}
