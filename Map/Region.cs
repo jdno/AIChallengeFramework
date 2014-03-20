@@ -116,7 +116,7 @@ namespace AIChallengeFramework
 			this.Continent = continent;
 			continent.AddRegion (this);
 			Armies = 0;
-			Owner = null;
+			Owner = "unknown";
 
 			if (Logger.IsDebug ()) {
 				Logger.Debug (string.Format("Region {0}:\tInitialized with continent {1}", id, continent.Id));
@@ -131,7 +131,10 @@ namespace AIChallengeFramework
 		/// <param name="region">Region.</param>
 		public void AddNeighbor (Region region)
 		{
-			if (!region.Equals(this)) Neighbors.Add (region);
+			if (!region.Equals (this) && !Neighbors.Contains (region)) {
+				Neighbors.Add (region);
+				region.AddNeighbor (this);
+			}
 
 			if (Logger.IsDebug ()) {
 				Logger.Debug (string.Format("Region {0}:\tAdded neighbor {1}.", Id, region.Id));
