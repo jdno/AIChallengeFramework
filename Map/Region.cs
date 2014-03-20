@@ -117,6 +117,12 @@ namespace AIChallengeFramework
 			continent.AddRegion (this);
 			Armies = 0;
 			Owner = null;
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug (string.Format("Region {0}:\tInitialized with continent {1}", id, continent.Id));
+			} else {
+				Logger.Info (string.Format("Region {0}:\tInitialized.", id));
+			}
 		}
 
 		/// <summary>
@@ -126,6 +132,10 @@ namespace AIChallengeFramework
 		public void AddNeighbor (Region region)
 		{
 			if (!region.Equals(this)) Neighbors.Add (region);
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug (string.Format("Region {0}:\tAdded neighbor {1}.", Id, region.Id));
+			}
 		}
 
 		/// <summary>

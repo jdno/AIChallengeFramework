@@ -79,6 +79,8 @@ namespace AIChallengeFramework
 			VisibleMap = new Map ();
 			OwnedContinents = new Dictionary<Continent, string> ();
 			EnemyMoves = new List<Move> ();
+
+			Logger.Info ("State:\tInitialized.");
 		}
 
 		/// <summary>
@@ -97,8 +99,16 @@ namespace AIChallengeFramework
 					if (OwnedContinents.ContainsKey (c)) {
 						if (OwnedContinents [c].Equals (MyName)) {
 							MyArmiesPerTurn -= c.Reward;
+
+							if (Logger.IsDebug ()) {
+								Logger.Debug (string.Format("State:\tYou lost the continent {0}.", c.Id));
+							}
 						} else {
 							EnemyArmiesPerTurn -= c.Reward;
+
+							if (Logger.IsDebug ()) {
+								Logger.Debug (string.Format("State:\tYour enemy lost the continent {0}.", c.Id));
+							}
 						}
 
 						OwnedContinents.Remove (c);
@@ -107,14 +117,24 @@ namespace AIChallengeFramework
 					if (!OwnedContinents.ContainsKey (c)) {
 						OwnedContinents.Add (c, MyName);
 						MyArmiesPerTurn += c.Reward;
+
+						if (Logger.IsDebug ()) {
+							Logger.Debug (string.Format("State:\tYou gained the continent {0}.", c.Id));
+						}
 					}
 				} else {
 					if (!OwnedContinents.ContainsKey (c)) {
 						OwnedContinents.Add (c, MyName);
 						EnemyArmiesPerTurn += c.Reward;
+
+						if (Logger.IsDebug ()) {
+							Logger.Debug (string.Format("State:\tYour enemy gained the continent {0}.", c.Id));
+						}
 					}
 				}
 			}
+
+			Logger.Info ("State:\tChecked rewards.");
 		}
 
 		/// <summary>
@@ -133,6 +153,11 @@ namespace AIChallengeFramework
 				Region targetRegion = VisibleMap.Regions[move.TargetRegion.Id];
 				targetRegion.Armies += move.Armies;
 			}
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug (string.Format("State:\tProcessed attack/transfer from {0} to {1} with {2} armies.",
+					move.SourceRegion.Id, move.TargetRegion.Id, move.Armies));
+			}
 		}
 
 		/// <summary>
@@ -145,6 +170,11 @@ namespace AIChallengeFramework
 			if (VisibleMap.Regions.ContainsKey (move.Region.Id)) {
 				Region region = VisibleMap.Regions[move.Region.Id];
 				region.Armies -= move.Armies;
+			}
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug (string.Format("State:\tProcessed placement of {0} armies into {1}.",
+					move.Region.Id, move.Armies));
 			}
 		}
 
@@ -165,6 +195,11 @@ namespace AIChallengeFramework
 			region = VisibleMap.Regions [regionId];
 			region.Owner = player;
 			region.Armies = armies;
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug (string.Format("State:\tUpdated region {0} with owner {1} and {2} armies.",
+					regionId, player, armies));
+			}
 		}
 	}
 }

@@ -39,6 +39,8 @@ namespace AIChallengeFramework
 		{
 			Continents = new List<Continent> ();
 			Regions = new Dictionary<int, Region> ();
+
+			Logger.Info ("Map:\tInitialized.");
 		}
 
 		/// <summary>
@@ -50,6 +52,10 @@ namespace AIChallengeFramework
 			if (!Continents.Contains (continent)) {
 				Continents.Add (continent);
 			}
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug (string.Format("Map:\tContinent {0} added.", continent.Id));
+			}
 		}
 
 		/// <summary>
@@ -59,6 +65,10 @@ namespace AIChallengeFramework
 		public void AddRegion (Region region)
 		{
 			Regions.Add (region.Id, region);
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug (string.Format("Map:\tRegion {0} added.", region.Id));
+			}
 		}
 
 		/// <summary>

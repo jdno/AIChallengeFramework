@@ -44,12 +44,16 @@ namespace AIChallengeFramework
 		{
 			this.Bot = bot;
 			State = new State ();
+
+			Logger.Info ("Parser:\tInitialized.");
 		}
 
 		public Parser (IBot bot, State state)
 		{
 			this.Bot = bot;
 			this.State = state;
+
+			Logger.Info ("Parser:\tInitialized.");
 		}
 
 		/// <summary>
@@ -59,6 +63,8 @@ namespace AIChallengeFramework
 		/// </summary>
 		public void Run ()
 		{
+			Logger.Info ("Parser:\tStarting loop.");
+
 			Console.SetIn (new StreamReader (Console.OpenStandardInput (8192)));
 
 			string command;
@@ -68,6 +74,7 @@ namespace AIChallengeFramework
 
 				// Shut down gracefully when no more commands arrive.
 				if (command.Equals (null)) {
+					Logger.Info ("Parser:\tStopping loop.");
 					break;
 				}
 
@@ -185,6 +192,10 @@ namespace AIChallengeFramework
 			}
 
 			State.EnemyMoves = opponentMoves;
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug ("Parser:\tProcessed the opponent's moves.");
+			}
 		}
 
 		/// <summary>
@@ -200,6 +211,10 @@ namespace AIChallengeFramework
 			}
 
 			State.CheckRewards ();
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug ("Parser:\tUpdated the map.");
+			}
 		}
 
 		/// <summary>
@@ -225,7 +240,7 @@ namespace AIChallengeFramework
 			}
 
 			if (startingRegions.Count != 6) {
-				Console.Error.WriteLine ("Not enough starting regions picked: {0} of 6", startingRegions.Count);
+				Logger.Error (string.Format("Not enough starting regions picked: {0} of 6", startingRegions.Count));
 			}
 
 			sb.Remove (sb.Length - 1, 1);
@@ -364,6 +379,10 @@ namespace AIChallengeFramework
 				State.CompleteMap.AddContinent (continent);
 				State.VisibleMap.AddContinent (continent);
 			}
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug ("Parser:\tSet up continents.");
+			}
 		}
 
 		/// <summary>
@@ -392,6 +411,10 @@ namespace AIChallengeFramework
 				State.CompleteMap.AddRegion (region);
 				State.VisibleMap.AddRegion (region);
 			}
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug ("Parser:\tSet up regions.");
+			}
 		}
 
 		/// <summary>
@@ -417,6 +440,10 @@ namespace AIChallengeFramework
 					region.AddNeighbor (neighbor);
 				}
 			}
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug ("Parser:\tSet up neighbor relationships.");
+			}
 		}
 
 		/// <summary>
@@ -438,7 +465,7 @@ namespace AIChallengeFramework
 		private void printErrorArgumentCount (string command, int expectedCount, int isCount)
 		{
 			string text = "Wrong argument count with command {0}: expected {1}, was {2}";
-			Console.Error.WriteLine (text, command, expectedCount, isCount);
+			Logger.Error (string.Format(text, command, expectedCount, isCount));
 		}
 
 		/// <summary>
@@ -448,7 +475,7 @@ namespace AIChallengeFramework
 		/// <param name="command">Command.</param>
 		private void printErrorUnknownCommand (string command)
 		{
-			Console.Error.WriteLine ("Unknown command received from game engine: {0}", command);
+			Logger.Error (string.Format("Unknown command received from game engine: {0}", command));
 		}
 	}
 }

@@ -45,7 +45,7 @@ namespace AIChallengeFramework
 			if (LogLevel == Severity.DEBUG) {
 				return true;
 			} else {
-				false;
+				return false;
 			}
 		}
 
@@ -83,7 +83,9 @@ namespace AIChallengeFramework
 		/// Print the specified message.
 		/// </summary>
 		/// <param name="message">Message.</param>
-		private static void print (string message);
+		private static void print (string message) {
+			Console.Error.WriteLine (message);
+		}
 	}
 }
 

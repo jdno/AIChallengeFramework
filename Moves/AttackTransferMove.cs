@@ -48,6 +48,13 @@ namespace AIChallengeFramework
 			SourceRegion = sourceRegion;
 			TargetRegion = targetRegion;
 			Armies = armies;
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug (string.Format ("AttackTransferMove:\tInitialized by player {0} who moves {1} armies" +
+					"from region {2} to region {3}.", player, armies, sourceRegion.Id, targetRegion.Id));
+			} else {
+				Logger.Info ("AttackTransferMove:\tInitialized.");
+			}
 		}
 
 		/// <summary>

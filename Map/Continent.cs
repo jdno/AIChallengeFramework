@@ -84,6 +84,12 @@ namespace AIChallengeFramework
 			this.Id = id;
 			this.Reward = reward;
 			Regions = new List<Region> ();
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug (string.Format("Continent:\tInitialized with id {0} and reward {1}.", id, reward));
+			} else {
+				Logger.Info (string.Format("Continent:\tInitialized with id {0}.", id));
+			}
 		}
 
 		/// <summary>
@@ -93,6 +99,10 @@ namespace AIChallengeFramework
 		public void AddRegion (Region region)
 		{
 			if (!Regions.Contains(region)) Regions.Add (region);
+
+			if (Logger.IsDebug ()) {
+				Logger.Debug (string.Format("Continent:\tRegion {0} added to continent {1}", region.Id, Id));
+			}
 		}
 
 		/// <summary>
