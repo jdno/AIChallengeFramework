@@ -221,6 +221,10 @@ namespace AIChallengeFramework
 				sb.Append (startingRegions [i].Id).Append (' ');
 			}
 
+			if (startingRegions.Count != 6) {
+				Console.Error.WriteLine ("Not enough starting regions picked: {0} of 6", startingRegions.Count);
+			}
+
 			sb.Remove (sb.Length - 1, 1);
 
 			printResponse (sb.ToString ());

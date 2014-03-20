@@ -26,7 +26,7 @@ namespace AIChallengeFramework
 		/// At the start of the game, the game engine presents you with twelve
 		/// regions from which you can choose your starting position. You MUST
 		/// return 6 preferred starting regions. If you fail to match this number,
-		/// the parser will choose for you.
+		/// the parser will warn you.
 		/// </summary>
 		/// <returns>The six starting regions.</returns>
 		/// <param name="regions">Regions.</param>
