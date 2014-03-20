@@ -312,9 +312,12 @@ namespace AIChallengeFramework
 				sb.Append (move.Parse ()).Append (", ");
 			}
 
-			sb.Remove (sb.Length - 2, 2);
-
-			printResponse (sb.ToString ());
+			if (sb.Length > 0) {
+				sb.Remove (sb.Length - 2, 2);
+				printResponse (sb.ToString ());
+			} else {
+				printResponse ("No moves");
+			}
 		}
 
 		/// <summary>
@@ -332,9 +335,12 @@ namespace AIChallengeFramework
 				sb.Append (move.Parse ()).Append (", ");
 			}
 
-			sb.Remove (sb.Length - 2, 2);
-
-			printResponse (sb.ToString ());
+			if (sb.Length > 0) {
+				sb.Remove (sb.Length - 2, 2);
+				printResponse (sb.ToString ());
+			} else {
+				printResponse ("No moves");
+			}
 		}
 
 		/// <summary>
