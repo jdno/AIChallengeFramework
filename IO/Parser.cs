@@ -163,7 +163,8 @@ namespace AIChallengeFramework
 		/// <param name="commandLine">Command line.</param>
 		public void OpponentMoves (string commandLine)
 		{
-			commandLine = commandLine.Remove (0, 15);
+			commandLine = commandLine.Remove (0, 14);
+			commandLine = commandLine.Trim ();
 			string[] moves = commandLine.Split (',');
 			string[] parts;
 
