@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace AIChallengeFramework
 {
@@ -58,6 +59,8 @@ namespace AIChallengeFramework
 		/// </summary>
 		public void Run ()
 		{
+			Console.SetIn (new StreamReader (Console.OpenStandardInput (8192)));
+
 			string command;
 
 			while (true) {
