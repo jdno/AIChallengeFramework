@@ -42,6 +42,7 @@
     <Compile Include="Game\State.cs" />
     <Compile Include="IO\Parser.cs" />
     <Compile Include="Bot\IBot.cs" />
+    <Compile Include="IO\Logger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
