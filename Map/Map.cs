@@ -38,6 +38,7 @@ namespace AIChallengeFramework
 		public Map ()
 		{
 			Continents = new List<Continent> ();
+			Regions = new Dictionary<int, Region> ();
 		}
 
 		/// <summary>
