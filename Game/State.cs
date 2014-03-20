@@ -95,7 +95,7 @@ namespace AIChallengeFramework
 			foreach (Continent c in VisibleMap.Continents) {
 				owner = c.OwnedBy ();
 
-				if (owner.Equals (null)) {
+				if (owner.Equals ("unknown")) {
 					if (OwnedContinents.ContainsKey (c)) {
 						if (OwnedContinents [c].Equals (MyName)) {
 							MyArmiesPerTurn -= c.Reward;

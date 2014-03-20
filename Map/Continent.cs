@@ -116,13 +116,13 @@ namespace AIChallengeFramework
 
 				foreach (Region r in Regions) {
 					if (!owner.Equals (r.Owner)) {
-						return null;
+						return "unkown";
 					}
 				}
 
 				return owner;
 			} else {
-				return null;
+				return "unknown";
 			}
 		}
 
