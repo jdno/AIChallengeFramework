@@ -288,7 +288,6 @@ namespace AIChallengeFramework
 				case "starting_armies":
 					int startingArmies = int.Parse (commandParts [2]);
 					State.MyArmiesPerTurn = startingArmies;
-					State.EnemyArmiesPerTurn = startingArmies;
 					break;
 
 				default:

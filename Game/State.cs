@@ -78,6 +78,8 @@ namespace AIChallengeFramework
 			CompleteMap = new Map ();
 			VisibleMap = new Map ();
 			OwnedContinents = new Dictionary<Continent, string> ();
+			MyArmiesPerTurn = 5;
+			EnemyArmiesPerTurn = 5;
 			EnemyMoves = new List<Move> ();
 
 			Logger.Info ("State:\tInitialized.");
@@ -189,7 +191,12 @@ namespace AIChallengeFramework
 			Region region;
 
 			if (!VisibleMap.Regions.ContainsKey (regionId)) {
-				VisibleMap.AddRegion (CompleteMap.Regions [regionId]);
+				region = CompleteMap.Regions[regionId];
+				VisibleMap.AddRegion (region);
+
+				if (!VisibleMap.Continents.Contains (region.Continent)) {
+					VisibleMap.Continents.Add (region.Continent);
+				}
 			}
 
 			region = VisibleMap.Regions [regionId];
