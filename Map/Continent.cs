@@ -221,6 +221,26 @@ namespace AIChallengeFramework
 				return 1;
 			}
 		}
+
+		/// <summary>
+		/// Determines whether the specified <see cref="System.Object"/> is equal to the current
+		/// <see cref="AIChallengeFramework.Continent"/>. This is done by comparing the ID of the
+		/// continents.
+		/// </summary>
+		/// <param name="obj">The <see cref="System.Object"/> to compare with the current
+		/// <see cref="AIChallengeFramework.Continent"/>.</param>
+		/// <returns><c>true</c> if the specified <see cref="System.Object"/> is equal to the current
+		/// <see cref="AIChallengeFramework.Continent"/>; otherwise, <c>false</c>.</returns>
+		public override bool Equals (Object obj)
+		{
+			Continent c = obj as Continent;
+
+			if (c.Id == this.Id) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 }
 
