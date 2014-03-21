@@ -115,7 +115,7 @@ namespace AIChallengeFramework
 			Neighbors = new List<Region> ();
 			this.Continent = continent;
 			continent.AddRegion (this);
-			Armies = 0;
+			Armies = 2;
 			Owner = "unknown";
 
 			if (Logger.IsDebug ()) {
