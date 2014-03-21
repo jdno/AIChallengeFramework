@@ -241,6 +241,16 @@ namespace AIChallengeFramework
 				return false;
 			}
 		}
+
+		/// <summary>
+		/// Serves as a hash function for a <see cref="AIChallengeFramework.Continent"/> object.
+		/// </summary>
+		/// <returns>A hash code for this instance that is suitable for use in hashing algorithms
+		/// and data structures such as a hash table.</returns>
+		public override int GetHashCode ()
+		{
+			return base.GetHashCode ();
+		}
 	}
 }
 

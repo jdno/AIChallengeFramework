@@ -188,21 +188,37 @@ namespace AIChallengeFramework
 		/// <param name="armies">Armies.</param>
 		public void UpdateMap (int regionId, string player, int armies)
 		{
-			Region region;
+			if (VisibleMap.Regions.ContainsKey (regionId)) {
+				Region originalRegion = VisibleMap.Regions [regionId];
+				originalRegion = VisibleMap.Regions [regionId];
+				originalRegion.Owner = player;
+				originalRegion.Armies = armies;
+			} else {
+				Region originalRegion = CompleteMap.Regions [regionId];
+				Region newRegion;
+				Continent continent;
 
-			if (!VisibleMap.Regions.ContainsKey (regionId)) {
-				region = CompleteMap.Regions[regionId];
-				VisibleMap.AddRegion (region);
-
-				if (!VisibleMap.Continents.Contains (region.Continent)) {
-					VisibleMap.Continents.Add (region.Continent);
+				if (!VisibleMap.Continents.Contains (originalRegion.Continent)) {
+					Continent originalContinent = originalRegion.Continent;
+					Continent newContinent = new Continent (originalContinent.Id, originalContinent.Reward);
+					VisibleMap.Continents.Add (newContinent);
 				}
+
+				continent = VisibleMap.ContinentForId (originalRegion.Continent.Id);
+				newRegion = new Region (originalRegion.Id, continent);
+
+				foreach (Region n in originalRegion.Neighbors) {
+					if (VisibleMap.Regions.ContainsKey (n.Id)) {
+						newRegion.AddNeighbor (VisibleMap.Regions[n.Id]);
+					}
+				}
+
+				newRegion.Owner = player;
+				newRegion.Armies = armies;
+
+				VisibleMap.AddRegion (originalRegion);
 			}
-
-			region = VisibleMap.Regions [regionId];
-			region.Owner = player;
-			region.Armies = armies;
-
+				
 			if (Logger.IsDebug ()) {
 				Logger.Debug (string.Format("State:\tUpdated region {0} with owner {1} and {2} armies.",
 					regionId, player, armies));
