@@ -26,15 +26,23 @@ namespace AIChallengeFramework
 		/// </summary>
 		public enum Severity {
 			OFF = 0,
-			ERROR,
-			INFO,
-			DEBUG
+			ERROR = 1,
+			INFO = 2,
+			DEBUG = 3
 		}
 
 		/// <summary>
 		/// Choose the severity you would like to have logged.
 		/// </summary>
-		public static readonly Severity LogLevel = Severity.OFF;
+		public static Severity LogLevel { get; private set; }
+
+		/// <summary>
+		/// Initialize this instance.
+		/// </summary>
+		public static void Initialize ()
+		{
+			LogLevel = Severity.ERROR;
+		}
 
 		/// <summary>
 		/// Efficiently check if the log level is DEBUG.

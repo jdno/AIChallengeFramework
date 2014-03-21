@@ -42,6 +42,8 @@ namespace AIChallengeFramework
 
 		public Parser (IBot bot)
 		{
+			Logger.Initialize ();
+
 			this.Bot = bot;
 			State = new State ();
 
@@ -50,6 +52,8 @@ namespace AIChallengeFramework
 
 		public Parser (IBot bot, State state)
 		{
+			Logger.Initialize ();
+
 			this.Bot = bot;
 			this.State = state;
 
@@ -65,7 +69,12 @@ namespace AIChallengeFramework
 		{
 			Logger.Info ("Parser:\tStarting loop.");
 
-			Console.SetIn (new StreamReader (Console.OpenStandardInput (8192)));
+			try {
+				Console.SetIn (new StreamReader (Console.OpenStandardInput (8192)));
+			} catch (Exception e) {
+				Logger.Error (string.Format (
+					"Parser:\tCaught exception of type {0} while configuring the console.", e.GetType ().Name));
+			}
 
 			string command;
 
@@ -85,7 +94,12 @@ namespace AIChallengeFramework
 					continue;
 				}
 
-				ParseLine (command);
+				try {
+					ParseLine (command);
+				} catch (Exception e) {
+					Logger.Error (string.Format (
+						"Parser:\tCaught exception of type {0} while parsing '{0}'.", e.GetType ().Name, command));
+				}
 			}
 		}
 
@@ -358,7 +372,7 @@ namespace AIChallengeFramework
 				sb.Append (move.Parse ()).Append (", ");
 			}
 
-			if (sb.Length > 0) {
+			if (moves.Count > 0) {
 				sb.Remove (sb.Length - 2, 2);
 				printResponse (sb.ToString ());
 			} else {
@@ -382,7 +396,6 @@ namespace AIChallengeFramework
 				continent = new Continent (id, reward);
 
 				State.CompleteMap.AddContinent (continent);
-				State.VisibleMap.AddContinent (continent);
 			}
 
 			if (Logger.IsDebug ()) {
@@ -414,7 +427,6 @@ namespace AIChallengeFramework
 				}
 					
 				State.CompleteMap.AddRegion (region);
-				State.VisibleMap.AddRegion (region);
 			}
 
 			if (Logger.IsDebug ()) {
