@@ -420,6 +420,8 @@ namespace AIChallengeFramework
 				continent = State.CompleteMap.ContinentForId (continentId);
 
 				if (continent.Equals (null)) {
+					Logger.Info (string.Format("Parser:\tFailed to add region {0} with the unkown continent {1}.",
+						id, continentId));
 					continue;
 				} else {
 					region = new Region (id, continent);
