@@ -134,10 +134,10 @@ namespace AIChallengeFramework
 			if (!region.Equals (this) && !Neighbors.Contains (region)) {
 				Neighbors.Add (region);
 				region.AddNeighbor (this);
-			}
 
-			if (Logger.IsDebug ()) {
-				Logger.Debug (string.Format("Region {0}:\tAdded neighbor {1}.", Id, region.Id));
+				if (Logger.IsDebug ()) {
+					Logger.Debug (string.Format("Region {0}:\tAdded neighbor {1}.", Id, region.Id));
+				}
 			}
 		}
 
