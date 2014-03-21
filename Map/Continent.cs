@@ -233,6 +233,10 @@ namespace AIChallengeFramework
 		/// <see cref="AIChallengeFramework.Continent"/>; otherwise, <c>false</c>.</returns>
 		public override bool Equals (Object obj)
 		{
+			if (obj.Equals (null)) {
+				return false;
+			}
+
 			Continent c = obj as Continent;
 
 			if (c.Id == this.Id) {
