@@ -63,7 +63,7 @@ namespace AIChallengeFramework
 		/// <param name="message">Message.</param>
 		public static void Error (string message)
 		{
-			if (LogLevel >= Severity.ERROR)
+			if (LogLevel <= Severity.ERROR)
 				print (message);
 		}
 
@@ -73,7 +73,7 @@ namespace AIChallengeFramework
 		/// <param name="message">Message.</param>
 		public static void Info (string message)
 		{
-			if (LogLevel >= Severity.INFO)
+			if (LogLevel <= Severity.INFO)
 				print (message);
 		}
 
@@ -83,7 +83,7 @@ namespace AIChallengeFramework
 		/// <param name="message">Message.</param>
 		public static void Debug (string message)
 		{
-			if (LogLevel == Severity.DEBUG)
+			if (LogLevel <= Severity.DEBUG)
 				print (message);
 		}
 
