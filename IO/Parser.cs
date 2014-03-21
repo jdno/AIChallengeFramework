@@ -99,6 +99,7 @@ namespace AIChallengeFramework
 				} catch (Exception e) {
 					Logger.Error (string.Format (
 						"Parser:\tCaught exception of type {0} while parsing '{1}'.", e.GetType ().Name, command));
+					Logger.Error (e.StackTrace);
 				}
 			}
 		}
