@@ -34,7 +34,7 @@ namespace AIChallengeFramework
 		/// <summary>
 		/// Choose the severity you would like to have logged.
 		/// </summary>
-		public static Severity LogLevel { get; private set; }
+		public static Severity LogLevel { get; set; }
 
 		/// <summary>
 		/// Initialize this instance.
