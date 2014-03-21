@@ -233,7 +233,7 @@ namespace AIChallengeFramework
 		/// <see cref="AIChallengeFramework.Continent"/>; otherwise, <c>false</c>.</returns>
 		public override bool Equals (Object obj)
 		{
-			if (obj.Equals (null)) {
+			if (obj == null || GetType() != obj.GetType()) {
 				return false;
 			}
 
@@ -253,7 +253,16 @@ namespace AIChallengeFramework
 		/// and data structures such as a hash table.</returns>
 		public override int GetHashCode ()
 		{
-			return base.GetHashCode ();
+			// Details about the implementation can be found here:
+			// http://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-an-overridden-system-object-gethashcode
+			unchecked // Overflow is fine, just wrap
+			{
+				int hash = 17;
+				// Suitable nullity checks etc, of course :)
+				hash = hash * 23 + Id.GetHashCode();
+				hash = hash * 23 + Reward.GetHashCode();
+				return hash;
+			}
 		}
 	}
 }

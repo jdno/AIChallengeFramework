@@ -30,7 +30,7 @@ namespace AIChallengeFramework
 		public List<Continent> Continents { get; private set; }
 
 		/// <summary>
-		/// Lookup regions on this map using their ID.
+		/// Dictionary for fast lookup of regions on this map using their ID.
 		/// </summary>
 		/// <value>The regions.</value>
 		public Dictionary<int, Region> Regions { get; private set; }
