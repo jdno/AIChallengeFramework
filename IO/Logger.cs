@@ -42,6 +42,7 @@ namespace AIChallengeFramework
 		public static void Initialize ()
 		{
 			LogLevel = Severity.ERROR;
+			Logger.Info ("Logger:\tInitialized.");
 		}
 
 		/// <summary>
