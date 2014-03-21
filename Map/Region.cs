@@ -167,6 +167,21 @@ namespace AIChallengeFramework
 		}
 
 		/// <summary>
+		/// Determines whether this instance is a border region.
+		/// </summary>
+		/// <returns><c>true</c> if this instance is a border region; otherwise, <c>false</c>.</returns>
+		public bool IsBorderRegion ()
+		{
+			foreach (Region n in Neighbors) {
+				if (!Continent.Equals (n.Continent)) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		/// <summary>
 		/// Calculates the number of enemy neighbors.
 		/// </summary>
 		/// <returns>The of enemy neighbors.</returns>

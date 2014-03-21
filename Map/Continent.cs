@@ -66,6 +66,12 @@ namespace AIChallengeFramework
 		private int numberOfBorderTerritories = -1;
 
 		/// <summary>
+		/// List of all territories that have neighbors on other continents.
+		/// </summary>
+		/// <value>The border regions.</value>
+		public List<Region> BorderRegions { get; private set; }
+
+		/// <summary>
 		/// Every connection between a region of this continent and
 		/// neighboring regions on other continents counts as an invasion
 		/// path.
@@ -93,15 +99,21 @@ namespace AIChallengeFramework
 		}
 
 		/// <summary>
-		/// Adds a region to the continent.
+		/// Adds a region to the continent, and check if it is a border region.
 		/// </summary>
 		/// <param name="region">Region.</param>
 		public void AddRegion (Region region)
 		{
-			if (!Regions.Contains(region)) Regions.Add (region);
+			if (!Regions.Contains (region)) {
+				Regions.Add (region);
+			
+				if (region.IsBorderRegion ()) {
+					BorderRegions.Add (region);
+				}
 
-			if (Logger.IsDebug ()) {
-				Logger.Debug (string.Format("Continent:\tRegion {0} added to continent {1}", region.Id, Id));
+				if (Logger.IsDebug ()) {
+					Logger.Debug (string.Format ("Continent:\tRegion {0} added to continent {1}", region.Id, Id));
+				}
 			}
 		}
 
