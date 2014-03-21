@@ -41,7 +41,7 @@ namespace AIChallengeFramework
 			Armies = armies;
 
 			if (Logger.IsDebug ()) {
-				Logger.Debug (string.Format ("PlaceArmiesMove:\tInitialized by player {0} who puts {1} armies into region {2}.",
+				Logger.Debug (string.Format ("PlaceArmiesMove:\tInitialized by {0} who puts {1} armies into region {2}.",
 					player, armies, region.Id));
 			} else {
 				Logger.Info ("PlaceArmiesMove:\tInitialized.");
