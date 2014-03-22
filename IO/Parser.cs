@@ -82,7 +82,7 @@ namespace AIChallengeFramework
 				command = Console.ReadLine ();
 
 				// Shut down gracefully when no more commands arrive.
-				if (command.Equals (null)) {
+				if (command == null) {
 					Logger.Info ("Parser:\tStopping loop.");
 					break;
 				}
@@ -420,7 +420,7 @@ namespace AIChallengeFramework
 
 				continent = State.CompleteMap.ContinentForId (continentId);
 
-				if (continent.Equals (null)) {
+				if (continent == null) {
 					Logger.Info (string.Format("Parser:\tFailed to add region {0} with the unkown continent {1}.",
 						id, continentId));
 					continue;
