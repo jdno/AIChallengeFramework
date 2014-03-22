@@ -90,6 +90,7 @@ namespace AIChallengeFramework
 			this.Id = id;
 			this.Reward = reward;
 			Regions = new List<Region> ();
+			BorderRegions = new List<Region> ();
 
 			if (Logger.IsDebug ()) {
 				Logger.Debug (string.Format("Continent:\tInitialized with id {0} and reward {1}.", id, reward));
