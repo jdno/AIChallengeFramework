@@ -163,7 +163,7 @@ namespace AIChallengeFramework
 		/// <returns><c>true</c> if this region has an owner; otherwise, <c>false</c>.</returns>
 		public bool HasOwner ()
 		{
-			if (Owner.Equals (null)) {
+			if (Owner.Equals ("unknown")) {
 				return false;
 			} else {
 				return true;
