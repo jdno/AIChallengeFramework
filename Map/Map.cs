@@ -51,6 +51,10 @@ namespace AIChallengeFramework
 		{
 			if (!Continents.Contains (continent)) {
 				Continents.Add (continent);
+
+				foreach (Region r in continent.Regions) {
+					AddRegion (r);
+				}
 			}
 
 			if (Logger.IsDebug ()) {
@@ -64,10 +68,13 @@ namespace AIChallengeFramework
 		/// <param name="region">Region.</param>
 		public void AddRegion (Region region)
 		{
-			Regions.Add (region.Id, region);
+			if (!Regions.ContainsKey (region.Id)) {
+				Regions.Add (region.Id, region);
+				AddContinent (region.Continent);
 
-			if (Logger.IsDebug ()) {
-				Logger.Debug (string.Format("Map:\tRegion {0} added.", region.Id));
+				if (Logger.IsDebug ()) {
+					Logger.Debug (string.Format("Map:\tRegion {0} added.", region.Id));
+				}
 			}
 		}
 
