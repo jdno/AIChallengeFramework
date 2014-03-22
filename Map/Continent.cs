@@ -60,12 +60,6 @@ namespace AIChallengeFramework
 		public List<Region> Regions { get; private set; }
 
 		/// <summary>
-		/// A border territory is a region that has a connection to a
-		/// foreign continent.
-		/// </summary>
-		private int numberOfBorderTerritories = -1;
-
-		/// <summary>
 		/// List of all territories that have neighbors on other continents.
 		/// </summary>
 		/// <value>The border regions.</value>
@@ -145,23 +139,7 @@ namespace AIChallengeFramework
 		/// </summary>
 		/// <returns>The of border territories.</returns>
 		public int NumberOfBorderTerritories () {
-			if (numberOfBorderTerritories > 0) {
-				return numberOfBorderTerritories;
-			}
-				
-			HashSet<Region> borderTerritories = new HashSet<Region> ();
-
-			foreach (Region r in Regions) {
-				foreach (Region n in r.Neighbors) {
-					if (!n.Continent.Equals (this)) {
-						borderTerritories.Add (r);
-					}
-				}
-			}
-
-			numberOfBorderTerritories = borderTerritories.Count;
-
-			return numberOfBorderTerritories;
+			return BorderRegions.Count;
 		}
 
 		/// <summary>
