@@ -66,13 +66,6 @@ namespace AIChallengeFramework
 		public List<Region> BorderRegions { get; private set; }
 
 		/// <summary>
-		/// Every connection between a region of this continent and
-		/// neighboring regions on other continents counts as an invasion
-		/// path.
-		/// </summary>
-		private int numberOfInvasionPaths = -1;
-
-		/// <summary>
 		/// Every continent has a priority, which indicates how "interesting"
 		/// it is. You can use this value to give your bot directions, and
 		/// extend the method if the default algorithm does not fit your plan.
@@ -158,16 +151,12 @@ namespace AIChallengeFramework
 		/// </summary>
 		/// <returns>The number of invasion paths.</returns>
 		public int NumberOfInvasionPaths () {
-			if (numberOfInvasionPaths > 0) {
-				return numberOfInvasionPaths;
-			}
-
-			numberOfInvasionPaths = 0;
+			int numberOfInvasionPaths = 0;
 
 			foreach (Region r in Regions) {
 				foreach (Region n in r.Neighbors) {
 					if (!n.Continent.Equals (this)) {
-						numberOfInvasionPaths += r.NumberOfEnemyNeighbors ();
+						numberOfInvasionPaths++;
 					}
 				}
 			}
