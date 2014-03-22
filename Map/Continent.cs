@@ -113,6 +113,17 @@ namespace AIChallengeFramework
 		}
 
 		/// <summary>
+		/// Adds a region to the list of border region.
+		/// </summary>
+		/// <param name="region">Region.</param>
+		public void AddBorderRegion (Region region)
+		{
+			if (!BorderRegions.Contains (region) && region.IsBorderRegion ()) {
+				BorderRegions.Add (region);
+			}
+		}
+
+		/// <summary>
 		/// Returns the owner of a continent. If the continent is
 		/// not fully owned by a single player, null is returned.
 		/// </summary>
