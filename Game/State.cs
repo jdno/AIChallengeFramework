@@ -75,6 +75,8 @@ namespace AIChallengeFramework
 
 		public State ()
 		{
+			MyName = "player1";
+			EnemyName = "player2";
 			CompleteMap = new Map ();
 			VisibleMap = new Map ();
 			OwnedContinents = new Dictionary<Continent, string> ();
