@@ -112,15 +112,22 @@ namespace AIChallengeFramework
 		/// <param name="move">Move.</param>
 		public void ProcessAttackTransferMove (AttackTransferMove move)
 		{
-			Region sourceRegion = VisibleMap.Regions [move.SourceRegion.Id];
-			Region targetRegion = VisibleMap.Regions [move.TargetRegion.Id];
+			int sourceId = move.SourceRegion.Id;
+			int targetId = move.TargetRegion.Id;
 
-			sourceRegion.Armies -= move.Armies;
-			targetRegion.Armies += move.Armies;
+			if (VisibleMap.Regions.ContainsKey (sourceId)) {
+				Region sourceRegion = VisibleMap.Regions [move.SourceRegion.Id];
+				sourceRegion.Armies -= move.Armies;
+			}
+
+			if (VisibleMap.Regions.ContainsKey (targetId)) {
+				Region targetRegion = VisibleMap.Regions [move.TargetRegion.Id];
+				targetRegion.Armies += move.Armies;
+			}
 
 			if (Logger.IsDebug ()) {
 				Logger.Debug (string.Format("State:\tProcessed attack/transfer from {0} to {1} with {2} armies.",
-					move.SourceRegion.Id, move.TargetRegion.Id, move.Armies));
+					sourceId, targetId, move.Armies));
 			}
 		}
 

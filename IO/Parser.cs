@@ -180,30 +180,32 @@ namespace AIChallengeFramework
 		{
 			commandLine = commandLine.Remove (0, 14);
 			commandLine = commandLine.Trim ();
-			string[] moves = commandLine.Split (',');
-			string[] parts;
+			string[] parts = commandLine.Split (' ');
+
+			if (parts.Length < 4) {
+				return;
+			}
 
 			List<Move> opponentMoves = new List<Move> ();
 			Region sourceRegion;
 			Region targetRegion;
 
-			foreach (string move in moves) {
-				parts = move.Split (' ');
-
-				if (parts.Length == 4 && parts[1].Equals ("place_armies")) {
-					sourceRegion = State.CompleteMap.Regions[int.Parse(parts[2])];
-					PlaceArmiesMove placeArmiesMove = new PlaceArmiesMove (parts[0], sourceRegion, int.Parse(parts[3]));
+			for (int i = 0; i < parts.Length; i += 4) {
+				if (parts [i + 1].Equals ("place_armies")) {
+					sourceRegion = State.CompleteMap.Regions [int.Parse (parts [i + 2])];
+					PlaceArmiesMove placeArmiesMove = new PlaceArmiesMove (parts [i], sourceRegion, int.Parse (parts [i + 3]));
 					opponentMoves.Add (placeArmiesMove);
 					State.ProcessPlaceArmiesMove (placeArmiesMove);
 				}
 
-				if (parts.Length == 5 && parts [1].Equals ("attack/transfer")) {
-					sourceRegion = State.CompleteMap.Regions [int.Parse (parts [2])];
-					targetRegion = State.CompleteMap.Regions [int.Parse (parts [3])];
+				if (parts [i + 1].Equals ("attack/transfer")) {
+					sourceRegion = State.CompleteMap.Regions [int.Parse (parts [i + 2])];
+					targetRegion = State.CompleteMap.Regions [int.Parse (parts [i + 3])];
 					AttackTransferMove attackTransferMove =
-						new AttackTransferMove (parts [0], sourceRegion, targetRegion, int.Parse (parts [4]));
+						new AttackTransferMove (parts [i], sourceRegion, targetRegion, int.Parse (parts [i + 4]));
 					opponentMoves.Add (attackTransferMove);
 					State.ProcessAttackTransferMove (attackTransferMove);
+					i++;
 				}
 			}
 
