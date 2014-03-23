@@ -31,7 +31,7 @@ namespace AIChallengeFramework
 		/// Your bot.
 		/// </summary>
 		/// <value>The bot.</value>
-		public IBot Bot { get; private set; }
+		public Bot Bot { get; private set; }
 
 		/// <summary>
 		/// The framework keeps track of the state of the game, which provides useful
@@ -40,7 +40,7 @@ namespace AIChallengeFramework
 		/// <value>The state.</value>
 		public State State { get; private set; }
 
-		public Parser (IBot bot)
+		public Parser (Bot bot)
 		{
 			Logger.Initialize ();
 
@@ -50,7 +50,7 @@ namespace AIChallengeFramework
 			Logger.Info ("Parser:\tInitialized.");
 		}
 
-		public Parser (IBot bot, State state)
+		public Parser (Bot bot, State state)
 		{
 			Logger.Initialize ();
 
@@ -154,7 +154,7 @@ namespace AIChallengeFramework
 
 				switch (commandParts [1]) {
 				case "place_armies":
-					PlaceArmies (State.MyArmiesPerTurn);
+					PlaceArmies ();
 					break;
 
 				case "attack/transfer":
@@ -207,7 +207,7 @@ namespace AIChallengeFramework
 				}
 			}
 
-			State.EnemyMoves = opponentMoves;
+			State.EnemyBot.MovesLastTurn = opponentMoves;
 
 			if (Logger.IsDebug ()) {
 				Logger.Debug ("Parser:\tProcessed the opponent's moves.");
@@ -279,16 +279,17 @@ namespace AIChallengeFramework
 
 				switch (commandParts [1]) {
 				case "your_bot":
-					State.MyName = commandParts [2];
+					State.MyBot.Name = commandParts [2];
 					break;
 
 				case "opponent_bot":
-					State.EnemyName = commandParts [2];
+					State.EnemyBot.Name = commandParts [2];
 					break;
 
 				case "starting_armies":
 					int startingArmies = int.Parse (commandParts [2]);
-					State.MyArmiesPerTurn = startingArmies;
+					State.MyBot.ArmiesPerTurn = startingArmies;
+					State.EnemyBot.ArmiesPerTurn = startingArmies;
 					break;
 
 				default:
@@ -338,9 +339,9 @@ namespace AIChallengeFramework
 		/// back to the game engine.
 		/// </summary>
 		/// <param name="armies">Armies.</param>
-		public void PlaceArmies (int armies)
+		public void PlaceArmies ()
 		{
-			List<PlaceArmiesMove> moves = Bot.PlaceArmies (armies);
+			List<PlaceArmiesMove> moves = Bot.PlaceArmies ();
 
 			StringBuilder sb = new StringBuilder ();
 

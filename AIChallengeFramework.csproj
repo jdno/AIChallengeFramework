@@ -41,8 +41,8 @@
     <Compile Include="Map\Region.cs" />
     <Compile Include="Game\State.cs" />
     <Compile Include="IO\Parser.cs" />
-    <Compile Include="Bot\IBot.cs" />
     <Compile Include="IO\Logger.cs" />
+    <Compile Include="Bot\Bot.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

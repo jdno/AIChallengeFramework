@@ -24,16 +24,16 @@ namespace AIChallengeFramework
 	public class State
 	{
 		/// <summary>
-		/// The name of your bot, as it is given by the game engine.
+		/// Your bot.
 		/// </summary>
-		/// <value>The name of your bot.</value>
-		public string MyName { get; set; }
+		/// <value>Your bot.</value>
+		public Bot MyBot { get; set; }
 
 		/// <summary>
-		/// The name of the enemy's bot, as it is given by the game engine.
+		/// The enemy's bot.
 		/// </summary>
-		/// <value>The name of the enemy.</value>
-		public string EnemyName { get; set; }
+		/// <value>The enemy's bot.</value>
+		public Bot EnemyBot { get; set; }
 
 		/// <summary>
 		/// This map contains all information that is available.
@@ -47,42 +47,14 @@ namespace AIChallengeFramework
 		/// <value>The visible map.</value>
 		public Map VisibleMap { get; set; }
 
-		/// <summary>
-		/// Keeps track which player owns which continent.
-		/// </summary>
-		/// <value>The owned continents.</value>
-		public Dictionary<Continent, string> OwnedContinents { get; private set; }
-
-		/// <summary>
-		/// Keeps track of how many armies you can place per turn.
-		/// </summary>
-		/// <value>My armies per turn.</value>
-		public int MyArmiesPerTurn { get; set; }
-
-		/// <summary>
-		/// Keeps track of how many armies your enemy can place per turn.
-		/// </summary>
-		/// <value>The enemy armies per turn.</value>
-		public int EnemyArmiesPerTurn { get; set; }
-
-		/// <summary>
-		/// The moves of your opponent in the last turn. This lists gets
-		/// refreshed every turn, so if you want to recognize trends in the
-		/// enemy bot, please do no rely on this attribute.
-		/// </summary>
-		/// <value>The enemy moves in the last turn.</value>
-		public List<Move> EnemyMoves { get; set; }
-
 		public State ()
 		{
-			MyName = "player1";
-			EnemyName = "player2";
+			MyBot = new Bot (this);
+			EnemyBot = new Bot (this);
 			CompleteMap = new Map ();
 			VisibleMap = new Map ();
-			OwnedContinents = new Dictionary<Continent, string> ();
-			MyArmiesPerTurn = 5;
-			EnemyArmiesPerTurn = 5;
-			EnemyMoves = new List<Move> ();
+			MyBot.ArmiesPerTurn = 5;
+			EnemyBot.ArmiesPerTurn = 5;
 
 			Logger.Info ("State:\tInitialized.");
 		}
@@ -100,39 +72,31 @@ namespace AIChallengeFramework
 				owner = c.OwnedBy ();
 
 				if (owner.Equals ("unknown")) {
-					if (OwnedContinents.ContainsKey (c)) {
-						if (OwnedContinents [c].Equals (MyName)) {
-							MyArmiesPerTurn -= c.Reward;
-
-							if (Logger.IsDebug ()) {
-								Logger.Debug (string.Format("State:\tYou lost the continent {0}.", c.Id));
-							}
-						} else {
-							EnemyArmiesPerTurn -= c.Reward;
-
-							if (Logger.IsDebug ()) {
-								Logger.Debug (string.Format("State:\tYour enemy lost the continent {0}.", c.Id));
-							}
-						}
-
-						OwnedContinents.Remove (c);
+					if (MyBot.OwnsContinent (c)) {
+						MyBot.LoseContinent (c);
 					}
-				} else if (owner.Equals (MyName)) {
-					if (!OwnedContinents.ContainsKey (c)) {
-						OwnedContinents.Add (c, MyName);
-						MyArmiesPerTurn += c.Reward;
 
-						if (Logger.IsDebug ()) {
-							Logger.Debug (string.Format("State:\tYou gained the continent {0}.", c.Id));
+					if (EnemyBot.OwnsContinent (c)) {
+						EnemyBot.LoseContinent (c);
+					}
+				}
+
+				if (owner.Equals (MyBot.Name)) {
+					if (!MyBot.OwnsContinent (c)) {
+						MyBot.GainContinent (c);
+
+						if (EnemyBot.OwnsContinent (c)) {
+							EnemyBot.LoseContinent (c);
 						}
 					}
-				} else {
-					if (!OwnedContinents.ContainsKey (c)) {
-						OwnedContinents.Add (c, MyName);
-						EnemyArmiesPerTurn += c.Reward;
+				}
 
-						if (Logger.IsDebug ()) {
-							Logger.Debug (string.Format("State:\tYour enemy gained the continent {0}.", c.Id));
+				if (owner.Equals (EnemyBot.Name)) {
+					if (!EnemyBot.OwnsContinent (c)) {
+						EnemyBot.GainContinent (c);
+
+						if (MyBot.OwnsContinent (c)) {
+							MyBot.LoseContinent (c);
 						}
 					}
 				}
