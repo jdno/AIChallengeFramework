@@ -112,7 +112,7 @@ namespace AIChallengeFramework
 		/// <param name="move">Move.</param>
 		public void ProcessAttackTransferMove (AttackTransferMove move)
 		{
-			Region sourceRegion = CompleteMap.Regions [move.SourceRegion.Id];
+			Region sourceRegion = VisibleMap.Regions [move.SourceRegion.Id];
 			Region targetRegion = VisibleMap.Regions [move.TargetRegion.Id];
 
 			sourceRegion.Armies -= move.Armies;
@@ -131,7 +131,7 @@ namespace AIChallengeFramework
 		/// <param name="move">Move.</param>
 		public void ProcessPlaceArmiesMove (PlaceArmiesMove move)
 		{
-			Region region = CompleteMap.Regions [move.Region.Id];
+			Region region = VisibleMap.Regions [move.Region.Id];
 			region.Armies += move.Armies;
 			
 			if (Logger.IsDebug ()) {
@@ -176,7 +176,7 @@ namespace AIChallengeFramework
 				newRegion.Owner = player;
 				newRegion.Armies = armies;
 
-				VisibleMap.AddRegion (originalRegion);
+				VisibleMap.AddRegion (newRegion);
 			}
 				
 			if (Logger.IsDebug ()) {
