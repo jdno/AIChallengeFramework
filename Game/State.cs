@@ -112,15 +112,11 @@ namespace AIChallengeFramework
 		/// <param name="move">Move.</param>
 		public void ProcessAttackTransferMove (AttackTransferMove move)
 		{
-			if (VisibleMap.Regions.ContainsKey (move.SourceRegion.Id)) {
-				Region sourceRegion = VisibleMap.Regions[move.SourceRegion.Id];
-				sourceRegion.Armies -= move.Armies;
-			}
+			Region sourceRegion = CompleteMap.Regions [move.SourceRegion.Id];
+			Region targetRegion = VisibleMap.Regions [move.TargetRegion.Id];
 
-			if (VisibleMap.Regions.ContainsKey (move.TargetRegion.Id)) {
-				Region targetRegion = VisibleMap.Regions[move.TargetRegion.Id];
-				targetRegion.Armies += move.Armies;
-			}
+			sourceRegion.Armies -= move.Armies;
+			targetRegion.Armies += move.Armies;
 
 			if (Logger.IsDebug ()) {
 				Logger.Debug (string.Format("State:\tProcessed attack/transfer from {0} to {1} with {2} armies.",
@@ -135,11 +131,9 @@ namespace AIChallengeFramework
 		/// <param name="move">Move.</param>
 		public void ProcessPlaceArmiesMove (PlaceArmiesMove move)
 		{
-			if (VisibleMap.Regions.ContainsKey (move.Region.Id)) {
-				Region region = VisibleMap.Regions[move.Region.Id];
-				region.Armies -= move.Armies;
-			}
-
+			Region region = CompleteMap.Regions [move.Region.Id];
+			region.Armies += move.Armies;
+			
 			if (Logger.IsDebug ()) {
 				Logger.Debug (string.Format("State:\tProcessed placement of {0} armies into {1}.",
 					move.Region.Id, move.Armies));
