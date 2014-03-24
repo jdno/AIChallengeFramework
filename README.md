@@ -43,15 +43,11 @@ If you want to customize the behavior of the framework, you have several options
 Below is a list of methods that you can override by default:
 
 * Bot
-	````
-    virtual public List<Region> PreferredStartingRegions (List<Region> regions)
-    virtual public List<PlaceArmiesMove> PlaceArmies ()
-    virtual public List<AttackTransferMove> AttackOrTransfer ()
-    ````
+    * virtual public List<Region> PreferredStartingRegions (List<Region> regions)
+    * virtual public List<PlaceArmiesMove> PlaceArmies ()
+    * virtual public List<AttackTransferMove> AttackOrTransfer ()
 * Continent
-    ````
-    virtual public int Priority ()
-    ````
+    * virtual public int Priority ()
 
 If you need more control, you have to fork the repository and create your own
 version of the framework.
