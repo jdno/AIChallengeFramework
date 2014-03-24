@@ -84,7 +84,7 @@ namespace AIChallengeFramework
 				// Shut down gracefully when no more commands arrive.
 				if (command == null) {
 					Logger.Info ("Parser:\tStopping loop.");
-					break;
+					Environment.Exit (0);
 				}
 
 				command = command.Trim ();
